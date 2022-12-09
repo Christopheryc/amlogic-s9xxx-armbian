@@ -74,7 +74,7 @@ on:
       armbian_fstype:
         description: "Select armbian rootfs type."
         required: false
-        default: "ext4"
+        default: "btrfs"
         type: choice
         options:
           - ext4
@@ -82,10 +82,10 @@ on:
       armbian_sign:
         description: "Set armbian custom name."
         required: false
-        default: ""
+        default: "cy"
 
 env:
-  TZ: America/New_York
+  TZ: Asia/Hong_Kong
 
 jobs:
   build:
@@ -152,7 +152,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Rebuild Armbian for Amlogic s9xxx
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: Christopheryc/amlogic-s9xxx-armbian@main
         if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: armbian
